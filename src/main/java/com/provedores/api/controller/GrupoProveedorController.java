@@ -24,7 +24,6 @@ import com.provedores.api.entity.GrupoProveedor;
 import com.provedores.api.service.GrupoProveedorService;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // Ejemplo del Post : 
 // {

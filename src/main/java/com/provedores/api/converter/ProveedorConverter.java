@@ -2,7 +2,6 @@ package com.provedores.api.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.provedores.api.dto.EmpresaDTO;
 import com.provedores.api.dto.GruposProveedorDTO;
 import com.provedores.api.entity.Empresa;
 import com.provedores.api.entity.GrupoProveedor;
