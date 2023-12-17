@@ -65,7 +65,7 @@ public class GrupoProveedorServiceImpl implements GrupoProveedorService {
     @Override
     public GrupoProveedor update(GrupoProveedor grupo) {
        try {
-        GrupoProveedorValidator.save(grupo);
+        //GrupoProveedorValidator.save(grupo);
         GrupoProveedor registro = repository.findById(grupo.getId()).orElseThrow();
         registro.setGrupoDescripcion(grupo.getGrupoDescripcion());
         registro.setEmpresa(grupo.getEmpresa());
