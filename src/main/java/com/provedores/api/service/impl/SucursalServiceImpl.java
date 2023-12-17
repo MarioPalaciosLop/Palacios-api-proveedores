@@ -60,7 +60,6 @@ public class SucursalServiceImpl implements SucursalService {
 
     @Override
     public Sucursal update(Sucursal sucursal) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
