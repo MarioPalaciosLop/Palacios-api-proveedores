@@ -62,16 +62,10 @@ public class SucursalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(registro);
     }
 
-    
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Sucursal> delete(@PathVariable("id") int id) {
         service.delete(id);
         return ResponseEntity.ok(null);
     }
     
-
-
-
-
 }

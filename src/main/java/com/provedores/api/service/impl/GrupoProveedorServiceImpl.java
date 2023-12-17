@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.provedores.api.entity.GrupoProveedor;
 import com.provedores.api.repository.GrupoProveedorRepository;
 import com.provedores.api.service.GrupoProveedorService;
+import com.provedores.api.validator.GrupoProveedorValidator;
 
 @Service
 public class GrupoProveedorServiceImpl implements GrupoProveedorService {
@@ -52,6 +53,7 @@ public class GrupoProveedorServiceImpl implements GrupoProveedorService {
     @Override
     public GrupoProveedor save(GrupoProveedor grupo) {
         try {
+            //GrupoProveedorValidator.save(grupo);
             grupo.setActivo(true);
             GrupoProveedor registro = repository.save(grupo);
             return registro; 
@@ -63,6 +65,7 @@ public class GrupoProveedorServiceImpl implements GrupoProveedorService {
     @Override
     public GrupoProveedor update(GrupoProveedor grupo) {
        try {
+        GrupoProveedorValidator.save(grupo);
         GrupoProveedor registro = repository.findById(grupo.getId()).orElseThrow();
         registro.setGrupoDescripcion(grupo.getGrupoDescripcion());
         registro.setEmpresa(grupo.getEmpresa());

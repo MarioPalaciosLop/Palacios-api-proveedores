@@ -40,10 +40,6 @@ public class Sucursal {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "empresa_id", nullable = false)
-    private Empresa empresa;
-
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
