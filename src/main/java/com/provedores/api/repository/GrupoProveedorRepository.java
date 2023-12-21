@@ -10,5 +10,5 @@ import com.provedores.api.entity.GrupoProveedor;
 public interface GrupoProveedorRepository extends JpaRepository<GrupoProveedor,Integer>{
     
     List<GrupoProveedor> findByGrupoDescripcionContaining(String grupoDescripcion, Pageable page);
-
-}
+    GrupoProveedor findByCodigoGrupo(String codigoGrupo);
+}   

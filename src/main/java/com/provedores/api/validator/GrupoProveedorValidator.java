@@ -4,26 +4,37 @@ import com.provedores.api.entity.GrupoProveedor;
 
 public class GrupoProveedorValidator {
 
-    public static void save(GrupoProveedor grupos) {
+    public static void save(GrupoProveedor grupo) {
+        // Validar longitud del código del grupo
+        validateStringLength(grupo.getCodigoGrupo(), "Código del grupo", 1, 10);
 
-        if (grupos == null) {
-            throw new IllegalArgumentException("El grupo proveedor no puede ser nulo");
+        // Validar longitud de la descripción del grupo
+        validateStringLength(grupo.getGrupoDescripcion(), "Descripción del grupo", 1, 255);
+
+        // Puedes agregar más validaciones de longitud según tus necesidades
+
+        // Validar que la empresa no sea nula
+        if (grupo.getEmpresa() == null) {
+            throw new RuntimeException("La empresa no puede ser nula");
         }
 
-        if (grupos.getCodigoGrupo().isEmpty() || grupos.getGrupoDescripcion().isEmpty()) {
-            throw new IllegalArgumentException("Código de grupo y descripción no pueden estar vacíos");
+        // Validar que la sucursal no sea nula
+        if (grupo.getSucursal() == null) {
+            throw new RuntimeException("La sucursal no puede ser nula");
         }
 
-        if (grupos.getEmpresa() == null || grupos.getSucursal() == null) {
-            throw new IllegalArgumentException("La empresa y la sucursal son obligatorias");
+        // Puedes agregar más validaciones según tus requisitos
+
+    }
+
+    private static void validateStringLength(String value, String fieldName, int minLength, int maxLength) {
+        if (value == null) {
+            throw new RuntimeException(fieldName + " no puede ser nulo");
         }
 
-        if (grupos.getCreatedAt() == null || grupos.getUpdatedAt() == null) {
-            throw new IllegalArgumentException("Las fechas de auditoría no pueden estar vacías");
-        }
-
-        if (grupos.getCodigoGrupo().length() > 10) {
-            throw new IllegalArgumentException("El código de grupo no puede tener más de 10 caracteres");
+        int length = value.trim().length();
+        if (length < minLength || length > maxLength) {
+            throw new RuntimeException(fieldName + " debe tener entre " + minLength + " y " + maxLength + " caracteres");
         }
     }
 }

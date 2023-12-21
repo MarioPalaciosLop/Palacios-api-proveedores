@@ -23,6 +23,7 @@ import com.provedores.api.converter.ProveedorConverter;
 import com.provedores.api.dto.GruposProveedorDTO;
 import com.provedores.api.entity.GrupoProveedor;
 import com.provedores.api.service.GrupoProveedorService;
+import com.provedores.api.utils.WrapperResponse;
 
 import org.slf4j.Logger;
 
@@ -56,55 +57,41 @@ public class GrupoProveedorController {
             return ResponseEntity.noContent().build();
         }
         List<GruposProveedorDTO> gruposDTO = converter.fromEntity(grupos);
-        return ResponseEntity.ok(gruposDTO);
+        return new WrapperResponse(true, "success", gruposDTO).createResponse(HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<GruposProveedorDTO> findById(@PathVariable("id") int id) {
+    public ResponseEntity<WrapperResponse<GruposProveedorDTO>> findById(@PathVariable("id") int id) {
         GrupoProveedor grupos = service.findById(id);
         if (grupos == null) {
             return ResponseEntity.notFound().build();
         }
         GruposProveedorDTO gruposDTO = converter.fromEntity(grupos);
-        return ResponseEntity.ok(gruposDTO);
+        return new WrapperResponse(true, "success", gruposDTO).createResponse(HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<GruposProveedorDTO> create(@RequestBody GruposProveedorDTO gruposDTO) {
-        try {
-            logger.info("Recibida solicitud para crear un nuevo GrupoProveedor: {}", gruposDTO);
-
-            GrupoProveedor registro = service.save(converter.fromDTO(gruposDTO));
-
-            if (registro != null) {
-                GruposProveedorDTO registroDTO = converter.fromEntity(registro);
-                logger.info("GrupoProveedor creado con éxito: {}", registroDTO);
-                return ResponseEntity.status(HttpStatus.CREATED).body(registroDTO);
-            } else {
-                logger.error("Error al crear el GrupoProveedor. El servicio devolvió null.");
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
-        } catch (Exception e) {
-            logger.error("Error al procesar la solicitud de creación del GrupoProveedor.", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<WrapperResponse<GruposProveedorDTO>> create(@RequestBody GruposProveedorDTO gruposDTO) {
+        GrupoProveedor registro = service.save(converter.fromDTO(gruposDTO));
+        GruposProveedorDTO registroDTO = converter.fromEntity(registro);
+        return new WrapperResponse(true, "success", registroDTO).createResponse(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<GruposProveedorDTO> update(@PathVariable("id") int id,
-            @RequestBody GruposProveedorDTO gruposDTO) {
+        @RequestBody GruposProveedorDTO gruposDTO) {
         GrupoProveedor registro = service.update(converter.fromDTO(gruposDTO));
         if (registro == null) {
             return ResponseEntity.notFound().build();
         }
         GruposProveedorDTO registroDTO = converter.fromEntity(registro);
-        return ResponseEntity.ok(registroDTO);
+        return new WrapperResponse(true, "success", registroDTO).createResponse(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<GruposProveedorDTO> delete(@PathVariable("id") int id) {
         service.delete(id);
-        return ResponseEntity.ok(null);
+        return new WrapperResponse(true, "success", null).createResponse(HttpStatus.OK);
     }
 
 }
